@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentines Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-background {
+      background: rgb(255, 208, 229);
+      background: linear-gradient(180deg, rgba(255, 208, 229, 1) 0%, rgba(255, 232, 242, 1) 36%, rgba(255, 255, 255, 1) 100%);
+    }
+
+    .bounce2 {
+      animation: bounce2 2s ease infinite;
+    }
+
+    @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</head>
+<body class="gradient-background">
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center p-4">
+      <!-- Tenor GIF Embed -->
+      <div class="tenor-gif-embed" data-postid="14863710471758531526" data-share-method="host" data-aspect-ratio="1.06667" data-width="100%">
+        <a href="https://tenor.com/view/hug-gif-14863710471758531526">Hug Sticker</a> from <a href="https://tenor.com/search/hug-stickers">Hug Stickers</a>
+      </div>
+      <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+      <!-- Question and Buttons -->
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine?</h2>
+      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+        <button id="yesButton"
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+          Yes
+        </button>
+        <button id="noButton"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+          No
+        </button>
+      </div>
+
+      <!-- Love Message -->
+      <div id="loveMessage" class="hidden mt-8 text-center text-xl font-semibold text-[#bd1e59]">
+        <p>Урааа, согласился быть моей валентинкой! 🥳<br>Жанымка, я тебя так люблю! 😘 Ты — самый дорогой человек в моей жизни, ты мое солнышко!<br>Ты самый лучший, и я мечтаю провести с тобой всю свою жизнь.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Check if canvas-confetti is loaded
+    if (typeof confetti === "undefined") {
+      console.error("Confetti library failed to load.");
+    } else {
+      const yesButton = document.getElementById('yesButton');
+      const noButton = document.getElementById('noButton');
+      const valentineQuestion = document.getElementById('valentineQuestion');
+      const responseButtons = document.getElementById('responseButtons');
+      const loveMessage = document.getElementById('loveMessage');
+    
+      let noClickCount = 0;
+      let buttonHeight = 48; // Starting height in pixels
+      let buttonWidth = 80;
+      let fontSize = 20; // Starting font size in pixels
+
+      // Handle 'No' button click
+      noButton.addEventListener('click', function() {
+        if (noClickCount < 5) {
+          noClickCount++;
+          buttonHeight += 35; // Increase height by 5px on each click
+          buttonWidth += 35;
+          fontSize += 25; // Increase font size by 1px on each click
+          yesButton.style.height = `${buttonHeight}px`; // Update button height
+          yesButton.style.width = `${buttonWidth}px`;
+          yesButton.style.fontSize = `${fontSize}px`; // Update font size
+          if (noClickCount < 6) {
+            noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
+          }
+        }
+      });
+    
+      // Handle 'Yes' button click
+      yesButton.addEventListener('click', () => {
+        valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
+        responseButtons.style.display = 'none'; // Hide both buttons
+        loveMessage.classList.remove('hidden'); // Show the love message
+        confetti(); // Trigger confetti animation
+      });
+    }
+  </script>  
+</body>
+</html>
